@@ -13,7 +13,7 @@ export const TOP_LEVEL_CATEGORIES = {
 
 export const ExpenseProvider = ({ children }) => {
     const [expenses, setExpenses] = useState([]);
-    const [customCategories, setCustomCategories] = useState([]);
+    const [customCategories, setCustomCategories] = useState([]); // El nombre correcto es customCategories
 
     useEffect(() => {
         const storedExpenses = localStorage.getItem('expenses');
@@ -23,7 +23,7 @@ export const ExpenseProvider = ({ children }) => {
 
         const storedCategories = localStorage.getItem('expenseCategories');
         if (storedCategories) {
-            setCategories(JSON.parse(storedCategories));
+            setCustomCategories(JSON.parse(storedCategories)); // Corregido: setCustomCategories
         }
     }, []);
 
@@ -32,8 +32,8 @@ export const ExpenseProvider = ({ children }) => {
     }, [expenses]);
 
     useEffect(() => {
-        localStorage.setItem('expenseCategories', JSON.stringify(categories));
-    }, [categories]);
+        localStorage.setItem('expenseCategories', JSON.stringify(customCategories)); // Corregido: customCategories
+    }, [customCategories]);
 
     const addExpense = (expense) => {
         setExpenses((prev) => [...prev, { ...expense, id: crypto.randomUUID(), date: expense.date || new Date().toISOString() }]);
@@ -44,7 +44,7 @@ export const ExpenseProvider = ({ children }) => {
     };
 
     const addCategory = (category) => {
-        setCategories((prev) => {
+        setCustomCategories((prev) => { // Corregido: setCustomCategories
             if (!prev.includes(category)) {
                 return [...prev, category];
             }
@@ -58,3 +58,4 @@ export const ExpenseProvider = ({ children }) => {
         </ExpenseContext.Provider>
     );
 };
+
