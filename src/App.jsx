@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Toaster } from 'sonner';
 import { AuthProvider } from '@/context/AuthContext';
 import { ExpenseProvider } from '@/context/ExpenseContext';
-import { ThemeProvider } from '@/context/ThemeContext'; // Agregamos esto
+import { ThemeProvider } from '@/context/ThemeContext'; // Importación importante
 import Login from '@/pages/Login';
 import Dashboard from '@/pages/Dashboard';
 import AddExpense from '@/pages/AddExpense';
@@ -23,7 +23,8 @@ const ProtectedLayout = ({ children }) => {
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    /* ESTA ES LA PIEZA CLAVE QUE FALTA EN TU PROYECTO */
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme"> 
       <AuthProvider>
         <ExpenseProvider>
           <Router>
