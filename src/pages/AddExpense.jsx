@@ -96,6 +96,94 @@ const AddExpense = () => {
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Selecciona una categoría" />
                                         </SelectTrigger>
+                                        <SelectContent>
+                                            {TOP_LEVEL_CATEGORIES.map(cat => (
+                                                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                                            ))}
+                                            {customCategories.map(cat => (
+                                                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <Button 
+                                        type="button" 
+                                        variant="outline" 
+                                        size="icon"
+                                        onClick={() => setIsAddingCustom(true)}
+                                    >
+                                        <Plus className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div className="flex gap-2">
+                                    <Input
+                                        placeholder="Nombre de nueva categoría"
+                                        value={newCategoryName}
+                                        onChange={(e) => setNewCategoryName(e.target.value)}
+                                    />
+                                    <Button type="button" onClick={handleAddCustomCategory}>Agregar</Button>
+                                    <Button type="button" variant="ghost" onClick={() => setIsAddingCustom(false)}>X</Button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Quién Pagó */}
+                        <div className="space-y-2">
+                            <Label>¿Quién pagó?</Label>
+                            <Select value={paidBy} onValueChange={setPaidBy}>
+                                <SelectTrigger>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Tomi">Tomi</SelectItem>
+                                    <SelectItem value="Gabi">Gabi</SelectItem>
+                                    <SelectItem value="Otro">Otro</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        {/* --- NUEVO: MÉTODO DE PAGO --- */}
+                        <div className="space-y-2">
+                            <Label>Método de Pago</Label>
+                            <Select value={paymentMethod} onValueChange={setPaymentMethod}>
+                                <SelectTrigger>
+                                    <div className="flex items-center gap-2">
+                                        {paymentMethod === 'Efectivo' ? <Wallet className="h-4 w-4 text-green-500" /> : <CreditCard className="h-4 w-4 text-blue-500" />}
+                                        <SelectValue />
+                                    </div>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Efectivo">Efectivo</SelectItem>
+                                    <SelectItem value="Tarjeta">Tarjeta</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        {/* Fecha */}
+                        <div className="space-y-2">
+                            <Label htmlFor="date">Fecha</Label>
+                            <Input
+                                id="date"
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                required
+                            />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button type="submit" className="w-full gap-2 text-lg py-6">
+                            <Save className="h-5 w-5" /> Guardar Gasto
+                        </Button>
+                    </CardFooter>
+                </form>
+            </Card>
+        </div>
+    );
+};
+
+export default AddExpense;
+
 
 
 
